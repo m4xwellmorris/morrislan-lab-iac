@@ -6,8 +6,8 @@ data "xenorchestra_template" "ubuntu" {
   name_label = "ubuntu2004img"
 }
 
-data "xenorchestra_sr" "nosan_rootdrives" {
-  name_label = "nosan_rootdrives"
+data "xenorchestra_sr" "rootdrives" {
+  name_label = "rootdrives"
   pool_id = data.xenorchestra_pool.prod.id
 }
 
