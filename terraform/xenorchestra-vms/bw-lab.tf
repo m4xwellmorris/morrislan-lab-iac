@@ -24,27 +24,26 @@ resource "xenorchestra_cloud_config" "cloud-init_net_bw-lab" {
 }
 
 resource "xenorchestra_vm" "bw-lab" {
-  memory_max = 17179869184
-  cpus = 8
+  memory_max = 4294967296
+  cpus = 4
   name_label = "bw-lab"
   template = data.xenorchestra_template.ubuntu.id
   hvm_boot_firmware = "uefi"
   cloud_config = xenorchestra_cloud_config.cloud-init_user_bw-lab.template
   cloud_network_config = xenorchestra_cloud_config.cloud-init_net_bw-lab.template
   wait_for_ip = "true"
-  exp_nested_hvm = "true"
 
   network {
-    network_id = data.xenorchestra_network.lan.id
+    network_id = data.xenorchestra_network.public.id
   }
 
   disk {
-    sr_id = data.xenorchestra_sr.rootdrives.id
+    sr_id = data.xenorchestra_sr.rootvdi.id
     name_label = "bw-lab_disk0"
-    size = 26843545600
+    size = 8589934592
   }
   disk {
-    sr_id = data.xenorchestra_sr.rootdrives.id
+    sr_id = data.xenorchestra_sr.datavdi.id
     name_label = "bw-lab_disk1"
     size = 10737418240
   }
