@@ -1,36 +1,16 @@
-data "template_file" "cloud-init_user_bw-lab" {
-  template = file("${path.module}/cloud-init_user.tpl")
-  vars = {
-    hostname = "bw-lab"
-    domain = "morris.lan"
-  }
-}
-
-data "template_file" "cloud-init_net_bw-lab" {
-  template = file("${path.module}/cloud-init_net.tpl")
-  vars = {
-    ip = "10.1.55.37"
-  }
-}
-
-resource "xenorchestra_cloud_config" "cloud-init_user_bw-lab" {
-  name = "cloud-init_user_bw-lab"
-  template = data.template_file.cloud-init_user_bw-lab.rendered
-}
-
-resource "xenorchestra_cloud_config" "cloud-init_net_bw-lab" {
-  name = "cloud-init_net_bw-lab"
-  template = data.template_file.cloud-init_net_bw-lab.rendered
-}
-
 resource "xenorchestra_vm" "bw-lab" {
   memory_max = 4294967296
   cpus = 4
   name_label = "bw-lab"
   template = data.xenorchestra_template.ubuntu.id
   hvm_boot_firmware = "uefi"
-  cloud_config = xenorchestra_cloud_config.cloud-init_user_bw-lab.template
-  cloud_network_config = xenorchestra_cloud_config.cloud-init_net_bw-lab.template
+  cloud_config = templatefile("cloud_config.tftpl", {
+    hostname = "bw-lab"
+    domain = "morris.lan"
+  })
+  cloud_network_config = templatefile("cloud_network_config.tftpl", {
+    ip = "10.1.55.37"
+  })
   wait_for_ip = "true"
 
   network {
