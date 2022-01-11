@@ -3,7 +3,7 @@ data "xenorchestra_pool" "pool" {
 }
 
 data "xenorchestra_template" "ubuntu" {
-  name_label = "ubuntu2004img"
+  name_label = "ubuntu2004img-lab"
 }
 
 data "xenorchestra_sr" "rootvdi" {
