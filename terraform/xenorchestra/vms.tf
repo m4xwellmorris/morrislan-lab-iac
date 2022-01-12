@@ -39,12 +39,9 @@ resource "xenorchestra_vm" "bw-lab" {
   cloud_network_config = templatefile("cloud_network_config.tftpl", {
     ip = "10.1.55.37"
   })
-  wait_for_ip = "true"
-
   network {
     network_id = data.xenorchestra_network.public.id
   }
-
   disk {
     sr_id = data.xenorchestra_sr.rootvdi.id
     name_label = "bw-lab_disk0"
@@ -64,11 +61,9 @@ resource "xenorchestra_vm" "hass-lab" {
   template = data.xenorchestra_template.ubuntu.id
   hvm_boot_firmware = "uefi"
   wait_for_ip = "false"
-
   network {
     network_id = data.xenorchestra_network.public.id
   }
-
   disk {
     sr_id = data.xenorchestra_sr.rootvdi.id
     name_label = "hass-lab_disk0"
@@ -89,12 +84,9 @@ resource "xenorchestra_vm" "mon-lab" {
   cloud_network_config = templatefile("cloud_network_config.tftpl", {
     ip = "10.1.55.28"
   })
-  wait_for_ip = "true"
-
   network {
     network_id = data.xenorchestra_network.public.id
   }
-
   disk {
     sr_id = data.xenorchestra_sr.rootvdi.id
     name_label = "mon-lab_disk0"
@@ -120,12 +112,9 @@ resource "xenorchestra_vm" "ops-lab" {
   cloud_network_config = templatefile("cloud_network_config.tftpl", {
     ip = "10.1.55.4"
   })
-  wait_for_ip = "true"
-
   network {
     network_id = data.xenorchestra_network.public.id
   }
-
   disk {
     sr_id = data.xenorchestra_sr.rootvdi.id
     name_label = "ops-lab_disk0"
@@ -146,12 +135,9 @@ resource "xenorchestra_vm" "unc-lab" {
   cloud_network_config = templatefile("cloud_network_config.tftpl", {
     ip = "10.1.55.34"
   })
-  wait_for_ip = "true"
-
   network {
     network_id = data.xenorchestra_network.public.id
   }
-
   disk {
     sr_id = data.xenorchestra_sr.rootvdi.id
     name_label = "unc-lab_disk0"
@@ -172,15 +158,12 @@ resource "xenorchestra_vm" "xorch-lab" {
   cloud_network_config = templatefile("cloud_network_config.tftpl", {
     ip = "10.1.55.7"
   })
-  wait_for_ip = "true"
-
   network {
     network_id = data.xenorchestra_network.public.id
   }
   network {
     network_id = data.xenorchestra_network.clusteric.id
   }
-
   disk {
     sr_id = data.xenorchestra_sr.rootvdi.id
     name_label = "xorch-lab_disk0"
